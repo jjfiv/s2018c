@@ -7,3 +7,10 @@ CFLAGS:=-Wall -Werror -Wextra -std=c99 -Wshadow
 
 operations: operations.o main.o
 
+.PHONY: clean
+clean:
+	@rm -rf operations *.o
+
+.PHONY: test
+test: operations
+	./operations

@@ -2,7 +2,7 @@
 #include <assert.h>
 #include <stdio.h>
 
-int main(int argc, char* argv[]) {
+int main(void) {
   // Test addition.
   assert(4 == addition(2,2));
   assert(14 == addition(12,2));
