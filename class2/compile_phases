@@ -1,0 +1,30 @@
+Turns out C can be broken down into many steps.
+
+     1.------------->2.--------->3.---------->4.----------------->
+Code -> Preprocessor -> Compiler -> Assembler -> Linker -> Program
+
+1. Just run the "preprocessor".
+
+gcc -E integral.c
+
+2. Only compile, don't assemble (they usually happen together).
+
+gcc -S integral.c
+
+Inspect the assembly file:
+
+nano integral.c
+
+2.3. Compile and save an object file: 
+
+gcc -c integral.c
+
+4. Link object files and libraries. (Order matters).
+
+gcc integral.o -lm -o integral
+
+Run it:
+
+./integral
+
+
