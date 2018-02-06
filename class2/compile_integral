@@ -1,0 +1,26 @@
+integral.c is all done, but we want to practice compiling it without a Makefile for help.
+
+1. Try to compile: What's wrong?
+
+gcc integral.c -o integral
+
+2. Try again with the math library.
+
+gcc integral.c -lm -o integral
+
+3. Try again with a different C compiler. They mostly all take the same arguments.
+
+clang integral.c -lm -o integral
+
+4. Now run it.
+
+./integral
+
+
+5. Some of that didn't work. I might have left off the '-o integral'.
+
+If you don't name your program, C will name it 'a.out' for you. Try it:
+
+gcc integral.c -lm
+./a.out
+
