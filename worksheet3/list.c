@@ -6,8 +6,9 @@
 // that Entry (its index) to us.
 Entry* alloc(VALUE value) {
   Entry* p = malloc(sizeof(Entry));
-  p->value = value;
   assert(p != NULL);
+  p->value = value;
+  p->next = NULL;
   return p;
 }
 
