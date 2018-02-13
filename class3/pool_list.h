@@ -11,7 +11,7 @@
 #define POOL_SIZE (8)
 
 // This is a magic pointer that signifies there is no "next" when we see it.
-#define NULL_ENTRY (POOL_SIZE+1)
+#define NULL_ENTRY (-1)
 
 // Our "pointer" type, which refers to the next thing in a list, is defined to be an int here.
 typedef int POINTER;
@@ -20,12 +20,15 @@ typedef double VALUE;
 
 // An entry in the pool contains a "pointer" to the next element and a value.
 struct Entry {
-  // We assume it's part of a list; if not, it's next will be NULL_ENTRY.
+  // This tells us whether this entry is in use or not.
+  bool available;
+  // This points to the next item in the list.
   POINTER next;
   // The value stored. We never clear these, but set them anew when we allocate an entry from the pool.
   VALUE value;
 };
 
+// Set up the pool to be a set of free entries so that we can grab one later.
 void clear_pool(void);
 
 // This function creates a new List Entry and returns a POINTER to it.
@@ -40,6 +43,9 @@ void push_back(POINTER start, VALUE value);
 bool list_equals_array(POINTER list, double* array, int array_len);
 // Given a list, take its first element off and 'free' it.
 POINTER free_front(POINTER list);
+// Given a list, free all of its items.
+void free_list(POINTER list);
+
 // This function demonstrates writing one of our lists to a particular file.
 void fprint_list(FILE* f, POINTER start);
 // This function demonstrates writing one of our lists to the console.
