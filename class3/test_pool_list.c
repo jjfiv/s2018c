@@ -1,5 +1,5 @@
 #include <assert.h>
-#include "list.h"
+#include "pool_list.h"
 
 // We've not dealt with command line arguments yet.
 // Try running this program without arguments to see the asserts fail:
@@ -13,6 +13,7 @@ int main(int argc, char **argv) {
   assert(argv != NULL);
   assert(argc == 2);
 
+  // Open the input file.
   FILE* input = fopen(argv[1], "r");
   assert(input != NULL);
 
@@ -42,6 +43,9 @@ int main(int argc, char **argv) {
     file_list = push_front(value, file_list);
   }
 
+  // Close the file:
+  fclose(input);
+
   // Make sure we read the things we wanted to read.
   printf("File List:\t");
   fprint_list(stdout, file_list);
@@ -52,7 +56,6 @@ int main(int argc, char **argv) {
 
   // Look at the pool.
   debug_pool();
-
 
   // Now test the functions we wrote:
   assert(list_size(test_list) == 3);

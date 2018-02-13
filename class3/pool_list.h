@@ -1,8 +1,17 @@
-#ifndef __LIST_H
-#define __LIST_H
+#ifndef __POOL_LIST_H
+#define __POOL_LIST_H 1
 
 #include <stdbool.h>
 #include <stdio.h>
+
+// A pool is a data structure often seen in C programming and resource-constrained systems. You want to have variable length "linked" lists, but you want to bound how big they can possibly be as a group, and you want to be able to make a new node in a linked list very quickly.
+
+// There are 8 or 2^3 items in our pool by default.
+// People tend to pick powers of 2 for things like this because they're faster on a computer. 
+#define POOL_SIZE (8)
+
+// This is a magic pointer that signifies there is no "next" when we see it.
+#define NULL_ENTRY (POOL_SIZE+1)
 
 // Our "pointer" type, which refers to the next thing in a list, is defined to be an int here.
 typedef int POINTER;
