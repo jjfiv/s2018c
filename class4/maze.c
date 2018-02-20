@@ -33,10 +33,9 @@ void maze_init(Maze *out, const char *file) {
   int size = max_w * h;
   printf("File Dimensions: %dx%d=%d\n", max_w, h, size);
 
-  out->size.x = max_w;
-  out->size.y = h;
-  out->start.x = -1;
-  out->start.y = -1;
+  point_init(&out->size, max_w, h);
+  point_init(&out->start, -1, -1);
+  out->rewards = NULL;
   out->data = (char *)malloc(size);
   assert(out->data != NULL);
 
@@ -58,14 +57,18 @@ void maze_init(Maze *out, const char *file) {
       w = 0;
     } else {
       char tile = (char) next;
-      // If we get to the "person" marker, set the tile to be blank.
       if (next == '@') {
+        // If we get to the "person" marker, set the tile to be blank.
         out->start.x = w;
         out->start.y = h;
         tile = ' ';
+      } else if (next == '*') {
+        // If we get to a "reward" marker, set the tile to be blank, and keep track of it.
+        push_point(&out->rewards, w, h);
+        tile = ' ';
       }
       int cell = h * out->size.x + w;
-      printf("%d,%d,%d: %c\n",w,h,cell,next);
+      //printf("%d,%d,%d: %c\n",w,h,cell,next);
       out->data[cell] = tile;
       w++;
     }
@@ -76,6 +79,8 @@ void maze_init(Maze *out, const char *file) {
 
 void maze_free(Maze *m) {
   free(m->data);
+  points_free(m->rewards);
+  m->rewards = NULL;
   m->data = NULL;
 }
 
@@ -92,3 +97,4 @@ void maze_print(Maze* m) {
     printf("\n");
   }
 }
+

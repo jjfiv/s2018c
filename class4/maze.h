@@ -1,19 +1,22 @@
 #ifndef __MAZE_H
 #define __MAZE_H
 
-typedef struct {
-  int x;
-  int y;
-} Point;
+#include "point.h"
 
 typedef struct {
+  // A point containing the size of the map.
   Point size;
+  // A point containing the start position of the character ('@').
   Point start;
+  // A list of points containing the rewards ('*').
+  Point* rewards;
+  // A "2d" array that represents the walls and floors of the map.
   char* data;
 } Maze;
 
 void maze_init(Maze* m, const char* file);
 void maze_print(Maze* m);
 void maze_free(Maze *m);
+
 
 #endif
