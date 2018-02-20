@@ -167,8 +167,7 @@ void game_update(Game *g) {
   int py = g->player.y;
 
   // Move all monsters: (if allowed)
-  int i =0;
-  for (Point *m = g->monsters; m != NULL; m = m->next, i++) {
+  for (Point *m = g->monsters; m != NULL; m = m->next) {
     Point dir;
     point_init(&dir, 0, 0);
     random_dir(&dir);
