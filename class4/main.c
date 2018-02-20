@@ -22,12 +22,16 @@ int main(int argc, char **argv) {
   printf("Start: %d,%d\n", maze.start.x, maze.start.y);
   printf("Rewards: %d\n", point_count(maze.rewards));
   maze_print(&maze);
-
+  
   initscr();
   start_color();
+  // rewards alternate between white and yellow.
   init_pair(1, COLOR_WHITE, COLOR_BLACK);
   init_pair(2, COLOR_YELLOW, COLOR_BLACK);
+  // the player is green.
   init_pair(3, COLOR_GREEN, COLOR_BLACK);
+  // the monsters are red.
+  init_pair(4, COLOR_RED, COLOR_BLACK);
   noecho();
   nocbreak();
   curs_set(0);
@@ -74,7 +78,11 @@ int main(int argc, char **argv) {
     } else if (!game.help) {
       // Only do game stuff if we're not on the help screen.
       game_handle_key(&game, key);
+      // Monsters only move when players do, for now.
       game_update(&game);
+    
+      // Force a key-press so we can debug...
+      // while(getch() == ERR) { }
     }
 
   }

@@ -66,6 +66,10 @@ void maze_init(Maze *out, const char *file) {
         // If we get to a "reward" marker, set the tile to be blank, and keep track of it.
         push_point(&out->rewards, w, h);
         tile = ' ';
+      } else if (next == 'm') {
+        // If we get to a "monster" marker, set the tile to be blank, and keep track of it.
+        push_point(&out->monster_starts, w, h);
+        tile = ' ';
       }
       int cell = h * out->size.x + w;
       //printf("%d,%d,%d: %c\n",w,h,cell,next);
@@ -80,6 +84,8 @@ void maze_init(Maze *out, const char *file) {
 void maze_free(Maze *m) {
   free(m->data);
   points_free(m->rewards);
+  points_free(m->monster_starts);
+  m->monster_starts = NULL;
   m->rewards = NULL;
   m->data = NULL;
 }
@@ -91,10 +97,14 @@ void maze_print(Maze* m) {
   int h = m->size.y;
   for (int y = 0; y < h; y++) {
     for (int x = 0; x < w; x++) {
-      int cell = x + y*w;
-      printf("%c", m->data[cell]);
+      printf("%c", maze_get(m, x, y));
     }
     printf("\n");
   }
 }
 
+char maze_get(Maze *m, int x, int y) {
+  int w = m->size.x;
+  int cell = x + y*w;
+  return m->data[cell];
+}
