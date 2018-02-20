@@ -90,8 +90,8 @@ int main(int argc, char **argv) {
   endwin();
 
 
-
-  // clean-up Maze memory before we're done.
+  // clean-up Maze and Game memory before we're done.
+  game_free(&game);
   maze_free(&maze);
   return 0;
 }
