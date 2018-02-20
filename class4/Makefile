@@ -16,8 +16,8 @@ clean:
 
 .PHONY: test
 test: ${PROGRAM}
-	./${PROGRAM} maze.txt
+	./${PROGRAM} maze.txt || stty sane
 
 .PHONY: debug
 debug: test
-	gdb ${PROGRAM} -ex 'run maze.txt'
+	gdb ${PROGRAM} -ex 'run maze.txt' || stty sane

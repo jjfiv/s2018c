@@ -54,7 +54,7 @@ int main(int argc, char **argv) {
     if (!game.help) {
       game_display(&game, &offset, anim);
       mvprintw(0,0, "Press 'q' to quit and 'h' for help.");
-      mvprintw(2,0, "Points: %d");
+      mvprintw(2,0, "Points: %d", game.score);
     } else {
       game_help_display(anim);
     }
